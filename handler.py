@@ -468,6 +468,8 @@ def handler(job):
     prompt["246"]["inputs"]["value"] = height
 
     prompt["270"]["inputs"]["value"] = max_frame
+    prompt["192"]["inputs"]["frame_window_size"] = max_frame
+
 
     # 다중 인물용 두 번째 오디오 설정
     if person_count == "multi":
@@ -528,9 +530,10 @@ def handler(job):
     output_video_path = None
     logger.info("출력 비디오 검색 중...")
 
-    for node_id in videos:
+        for node_id in videos:
         if videos[node_id]:
-            output_video_path = videos[node_id][0]
+            audio_video = next((v for v in videos[node_id] if '-audio' in v), None)
+            output_video_path = audio_video if audio_video else videos[node_id][0]
             logger.info(f"노드 {node_id}에서 출력 비디오 발견: {output_video_path}")
             break
         else:
