@@ -430,6 +430,7 @@ def handler(job):
         # setdefault를 사용하여 'inputs' 딕셔너리가 없으면 생성
         inputs = prompt[sampler_node_id].setdefault("inputs", {})
         inputs["force_offload"] = force_offload
+        inputs["num_persistent_param_in_dit"] = job_input.get("num_persistent_param_in_dit", 0)
         logger.info(f"✅ 노드 {sampler_node_id} (WanVideoSampler) 업데이트됨: force_offload={force_offload}")
     else:
         logger.warning("⚠️ 경고: WanVideoSampler 노드를 찾을 수 없습니다. 워크플로우 기본값을 사용합니다.")
